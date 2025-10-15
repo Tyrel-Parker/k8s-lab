@@ -23,13 +23,13 @@ sudo systemctl enable libvirtd
 sudo systemctl status libvirtd
 
 ### Finally
-**reboot**
-**after reboot**
-groups
-**verify libvirt and kvm are in list**
-kvm-ok
-virsh list --all
-**should be empty**
+**reboot** 
+**after reboot** 
+groups 
+**verify libvirt and kvm are in list** 
+kvm-ok 
+virsh list --all 
+**should be empty** 
 
 
 # Vagrant
