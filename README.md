@@ -35,7 +35,7 @@ virsh list --all
 # Vagrant
 vagrant up              **might show some libvirt_ip_command errors due to an older fog-libvirt library being used. IGNORE.**
 vagrant status
-virsh list --all        
+virsh list --all
 virt-manager            **gui vm manager**
 vagrant ssh control     **will setup ssh connection to the control node**
 vagrant ssh worker1     **ssh connection to worker1**
