@@ -23,7 +23,7 @@ This assumes that KVM is installed and running.
 - sudo systemctl status libvirtd
 
 6. Finally
-- **reboot**  
+- __reboot__  
 - **after reboot**  
 - groups  
 - **verify libvirt and kvm are in list**  
