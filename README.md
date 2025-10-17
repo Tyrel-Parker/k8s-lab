@@ -990,6 +990,57 @@ kubectl delete pod nginx busybox
 kubectl delete svc nginx
 ```
 
+### Deploy Multi-Pod Application Across Nodes
+
+Now let's deploy an application that will distribute pods across all worker nodes:
+
+```bash
+# Create a deployment with 6 replicas (spreads across 3 workers)
+kubectl create deployment nginx-demo --image=nginx --replicas=6
+
+# Watch pods being scheduled across nodes
+kubectl get pods -o wide -w
+# Press Ctrl+C when all are Running
+
+# You should see pods distributed across worker1, worker2, worker3
+kubectl get pods -o wide
+
+# Expose the deployment as a service
+kubectl expose deployment nginx-demo --port=80 --type=ClusterIP
+
+# Get service details
+kubectl get svc nginx-demo
+
+# Test service from within cluster
+kubectl run test-pod --image=busybox --rm -it --restart=Never -- wget -O- nginx-demo
+
+# Scale up to see more distribution
+kubectl scale deployment nginx-demo --replicas=12
+
+# Watch pods spread across nodes
+kubectl get pods -o wide
+
+# Check how many pods on each node
+kubectl get pods -o wide | grep worker1 | wc -l
+kubectl get pods -o wide | grep worker2 | wc -l
+kubectl get pods -o wide | grep worker3 | wc -l
+
+# Cleanup when done
+kubectl delete deployment nginx-demo
+kubectl delete svc nginx-demo
+```
+
+**What this demonstrates:**
+- Pod scheduling across multiple nodes
+- Kubernetes automatic load distribution
+- Service discovery and load balancing
+- Scaling deployments
+
+**Expected behavior:**
+- Pods roughly evenly distributed (4 pods per worker with 12 replicas)
+- Service load balances across all pods
+- Pods can communicate via service name
+
 ---
 
 ## <a name="troubleshooting"></a>Common Issues and Troubleshooting
